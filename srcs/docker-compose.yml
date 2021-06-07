@@ -1,15 +1,21 @@
-version: "3.9"
+version: "3.7"
+
+volumes:
+
 services:
 	mariadb:
+		image: mariadb
+		restart: always
 		build: ./requirements/mariadb/
-		command:
+		user: root
+		
 		ports:
-			- 3306:3306
+			- "3306:3306"
 	NGINX:
 		build: ./requirements/nginx
 		command:
 		ports:
-			- 9000:9000
+			- "443:443"
 	WordPress+PHP:
 		build:
 		command:

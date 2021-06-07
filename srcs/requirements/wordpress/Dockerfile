@@ -5,22 +5,20 @@
 #                                                     +:+ +:+         +:+      #
 #    By: nagrivan <nagrivan@21-school.ru>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2021/05/15 15:45:59 by nagrivan          #+#    #+#              #
-#    Updated: 2021/06/07 17:46:54 by nagrivan         ###   ########.fr        #
+#    Created: 2021/06/02 16:06:20 by nagrivan          #+#    #+#              #
+#    Updated: 2021/06/02 16:25:51 by nagrivan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 FROM debian:buster
 
-RUN apt-get update && apt-get upgrade -y
+RUN apt-get update && apt-get upgrade -y && \
+	apt-get -y install openssl unzip wget
 
-RUN apt-get -y install nginx openssl unzip wget vim
+RUN wget https://wordpress.org/latest.tar.gz \
+	&& tar -xvzf latest.tar.gz && rm -rf latest.tar.gz \
+	&& mv wordpress/ var/www/html/
 
-RUN openssl req -x509 -nodes -days 365 -subj "/C=RU/ST=Russia/L=/O=/OU=School21/CN=nagrivan" \
-	-newkey rsa:2048 -keyout /etc/ssl/nginx-selfsigned.key -out /etc/ssl/nginx-selfsigned.crt
+EXPOSE 9000
 
-COPY . .
-
-RUN cp conf/default etc/nginx/sites-available/default
-
-EXPOSE 443
+CMD 
