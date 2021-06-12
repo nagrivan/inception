@@ -6,7 +6,7 @@
 #    By: nagrivan <nagrivan@21-school.ru>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/15 15:45:59 by nagrivan          #+#    #+#              #
-#    Updated: 2021/06/07 17:46:54 by nagrivan         ###   ########.fr        #
+#    Updated: 2021/06/12 14:28:14 by nagrivan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,6 @@ RUN openssl req -x509 -nodes -days 365 -subj "/C=RU/ST=Russia/L=/O=/OU=School21/
 
 COPY . .
 
-RUN cp conf/default etc/nginx/sites-available/default
+RUN cp conf/nginx.conf etc/nginx/sites-available/nginx.conf
 
 EXPOSE 443

@@ -6,7 +6,7 @@
 #    By: nagrivan <nagrivan@21-school.ru>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/15 14:49:26 by nagrivan          #+#    #+#              #
-#    Updated: 2021/05/15 17:23:52 by nagrivan         ###   ########.fr        #
+#    Updated: 2021/06/12 15:48:27 by nagrivan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,8 @@ RUN apt-get -y install php-mysql
 
 RUN apt-get -y install default-mysql-server
 
-EXPOSE 3306
+COPY . .
 
-CMD
+RUN /etc/mysql/mariadb.conf.d/
+
+EXPOSE 3306
