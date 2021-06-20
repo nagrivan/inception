@@ -10,5 +10,6 @@ echo "CREATE USER 'nagrivan'@ IDENTIFIED BY 'FuckingPassword';" | mysql
 echo "GRANT ALL PRIVILEGES ON wordpress.* TO 'nagrivan';" | mysql
 echo "FLUSH PRIVILEGES;" | mysql
 echo "Starting MariaDB..."
+#mysqladmin -u root password $MYSQL_ROOT_PASSWORD
 mysql
 exec "$@"
