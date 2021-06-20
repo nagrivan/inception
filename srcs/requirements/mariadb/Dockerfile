@@ -6,7 +6,7 @@
 #    By: nagrivan <nagrivan@21-school.ru>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/15 14:49:26 by nagrivan          #+#    #+#              #
-#    Updated: 2021/06/19 19:11:46 by nagrivan         ###   ########.fr        #
+#    Updated: 2021/06/20 15:41:56 by nagrivan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,12 @@ RUN apt-get -y install default-mysql-server
 
 COPY . .
 
-RUN mv /conf/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
+RUN rm /etc/mysql/mariadb.conf.d/50-server.cnf && mv /conf/50-server.cnf /etc/mysql/mariadb.conf.d/
+
+RUN chmod 755 /tools/starting_mariadb.sh
 
 EXPOSE 3306
+
+ENTRYPOINT ["/tools/starting_mariadb.sh"]
+
+CMD ["mysql"]
