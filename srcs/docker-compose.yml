@@ -1,24 +1,41 @@
 version: "3.7"
 
-volumes:
-
 services:
-	mariadb:
-		image: mariadb
-		restart: always
-		build: ./requirements/mariadb/
-		user: root
-		
-		ports:
-			- "3306:3306"
-	NGINX:
-		build: ./requirements/nginx
-		command:
-		ports:
-			- "443:443"
-	WordPress+PHP:
-		build:
-		command:
-		depends_on:
-			- mariadb
-network_mode: host
+ mariadb:
+  image: mariadb
+  restart: always
+  env_file: .env
+  build: ./requirements/mariadb/
+  networks:
+   - all_services
+  user: root
+  ports:
+   - "3306:3306"
+ NGINX:
+  depends_on:
+    - WordPress_PHP
+  image: nginx
+  restart: always
+  env_file: .env
+  build: ./requirements/nginx
+  networks:
+   - all_services
+  user: root
+  ports:
+   - "443:443"
+ WordPress_PHP:
+  depends_on:
+    - mariadb
+  image: wordpress
+  restart: always
+  env_file: .env
+  build: ./requirements/wordpress
+  networks:
+   - all_services
+  user: root
+  ports:
+   - "9000:9000"
+networks:
+ all_services:
+  name: all_services
+  driver: bridge
