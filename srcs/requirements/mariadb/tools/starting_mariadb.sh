@@ -12,4 +12,4 @@ echo "FLUSH PRIVILEGES;" | mysql
 echo "Starting MariaDB..."
 #mysqladmin -u root password $MYSQL_ROOT_PASSWORD
 mysql
-exec "$@"
+#exec "$@"

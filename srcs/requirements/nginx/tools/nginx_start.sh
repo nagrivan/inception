@@ -3,4 +3,3 @@
 echo "ft_server launching..."
 
 service nginx start
-bash

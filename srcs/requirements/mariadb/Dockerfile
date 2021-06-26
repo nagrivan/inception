@@ -6,13 +6,15 @@
 #    By: nagrivan <nagrivan@21-school.ru>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/15 14:49:26 by nagrivan          #+#    #+#              #
-#    Updated: 2021/06/20 15:41:56 by nagrivan         ###   ########.fr        #
+#    Updated: 2021/06/26 15:46:50 by nagrivan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 FROM	debian:buster
 
 RUN apt-get update && apt-get upgrade -y
+
+RUN apt-get -y install htop
 
 RUN apt-get -y install openssl unzip wget
 
@@ -28,6 +30,6 @@ RUN chmod 755 /tools/starting_mariadb.sh
 
 EXPOSE 3306
 
-ENTRYPOINT ["/tools/starting_mariadb.sh"]
+RUN /tools/starting_mariadb.sh
 
-CMD ["mysql"]
+ENTRYPOINT ["mysqld"]
