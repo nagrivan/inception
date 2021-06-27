@@ -1,5 +1,5 @@
 #!/bin/bash
 
-echo "ft_server launching..."
+echo "Service nginx starting..."
 
 service nginx start
