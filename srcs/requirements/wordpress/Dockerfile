@@ -6,7 +6,7 @@
 #    By: nagrivan <nagrivan@21-school.ru>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/02 16:06:20 by nagrivan          #+#    #+#              #
-#    Updated: 2021/07/03 17:24:01 by nagrivan         ###   ########.fr        #
+#    Updated: 2021/07/16 13:20:41 by nagrivan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,3 +35,4 @@ EXPOSE 9000
 RUN cp conf/www.conf /etc/php/7.3/fpm/pool.d/www.conf && service php7.3-fpm start
 
 ENTRYPOINT ["/usr/sbin/php-fpm7.3", "--nodaemonize"]
+#ENTRYPOINT ["tail", "-f", "/dev/null"]

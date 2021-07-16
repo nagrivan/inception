@@ -25,11 +25,9 @@ services:
   networks:
    - all_services
   user: root
-  ports:
-   - "3306:3306"
- NGINX:
+ nginx:
   depends_on:
-    - WordPress_PHP
+    - wordpress
   image: nginx
   volumes:
    - wordpress:/var/www/html
@@ -41,7 +39,7 @@ services:
   user: root
   ports:
    - "443:443"
- WordPress_PHP:
+ wordpress:
   depends_on:
     - mariadb
   image: wordpress
@@ -53,8 +51,6 @@ services:
   networks:
    - all_services
   user: root
-  ports:
-   - "9000:9000"
 networks:
  all_services:
   name: all_services

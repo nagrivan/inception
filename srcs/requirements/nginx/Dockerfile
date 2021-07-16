@@ -22,9 +22,9 @@ RUN apt-get -y install htop
 RUN openssl req -x509 -nodes -days 365 -subj "/C=RU/ST=Russia/L=/O=/OU=School21/CN=nagrivan" \
 	-newkey rsa:2048 -keyout /etc/ssl/nginx-selfsigned.key -out /etc/ssl/nginx-selfsigned.crt
 
-COPY . .
+# COPY . .
 
-RUN cp conf/default etc/nginx/sites-available/default
+COPY conf/default etc/nginx/sites-available/default
 
 EXPOSE 443
 
