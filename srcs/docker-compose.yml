@@ -24,7 +24,7 @@ services:
   build: ./requirements/mariadb/
   networks:
    - all_services
-  user: root
+#  user: root
  nginx:
   depends_on:
     - wordpress
@@ -36,7 +36,7 @@ services:
   build: ./requirements/nginx
   networks:
    - all_services
-  user: root
+#  user: root
   ports:
    - "443:443"
  wordpress:
@@ -50,8 +50,8 @@ services:
   build: ./requirements/wordpress
   networks:
    - all_services
-  user: root
+#  user: root
 networks:
  all_services:
   name: all_services
-  driver: bridge
+#  driver: bridge

@@ -26,6 +26,8 @@ RUN openssl req -x509 -nodes -days 365 -subj "/C=RU/ST=Russia/L=/O=/OU=School21/
 
 COPY conf/default etc/nginx/sites-available/default
 
+COPY conf/default etc/nginx/sites-enabled/default
+
 EXPOSE 443
 
 ENTRYPOINT ["nginx", "-g", "daemon off;"]

@@ -14,7 +14,7 @@ FROM debian:buster
 
 RUN apt-get update && apt-get upgrade -y && \
 	apt-get -y install openssl unzip wget && \
-	apt-get -y install php-fpm php-mysql php-gd php-mbstring redis-server php-xml php-redis php-pspell php-zip 
+	apt-get -y install php7.3 php-fpm php-mysql php-gd php-mbstring redis-server php-xml php-redis php-pspell php-zip 
 
 RUN apt-get -y install htop
 
@@ -32,7 +32,15 @@ RUN chmod 755 ./tools/php_fpm_start.sh && cp -r conf/ var/www
 
 EXPOSE 9000
 
-RUN cp conf/www.conf /etc/php/7.3/fpm/pool.d/www.conf && service php7.3-fpm start
+RUN mkdir ./run/php
 
+RUN cp -r wordpress/ var/www/html/
+
+RUN cp conf/wp-config.php /var/www/
+
+RUN cp conf/www.conf /etc/php/7.3/fpm/pool.d/www.conf && service php7.3-fpm start
+# && ./usr/sbin/php-fmp7.3 -F
+
+#ENTRYPOINT ["php7.3-fpm"]
 ENTRYPOINT ["/usr/sbin/php-fpm7.3", "--nodaemonize"]
 #ENTRYPOINT ["tail", "-f", "/dev/null"]
