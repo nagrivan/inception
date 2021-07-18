@@ -13,34 +13,30 @@
 FROM debian:buster
 
 RUN apt-get update && apt-get upgrade -y && \
-	apt-get -y install openssl unzip wget && \
+	apt-get -y install openssl unzip wget vim  && \
 	apt-get -y install php7.3 php-fpm php-mysql php-gd php-mbstring redis-server php-xml php-redis php-pspell php-zip 
 
 RUN apt-get -y install htop
 
-RUN wget https://wordpress.org/latest.tar.gz \
-	&& tar -xvzf latest.tar.gz && rm -rf latest.tar.gz \
-	mkdir var/www/
-
-#COPY ./conf/ var/www/ && ./tools/
-
-#RUN cp /conf/wp-config.php /var/www/  && mv wordpress/ var/www/wordpress/
-
 COPY . .
+
+RUN cp conf/www.conf /etc/php/7.3/fpm/pool.d/www.conf && service php7.3-fpm start
+
+ADD  https://ru.wordpress.org/wordpress-5.7.2-ru_RU.tar.gz var/www/html/
+
+RUN cd var/www/html/ && tar -xvzf wordpress-5.7.2-ru_RU.tar.gz && rm -rf wordpress-5.7.2-ru-RU.tar.gz
 
 RUN chmod 755 ./tools/php_fpm_start.sh && cp -r conf/ var/www
 
 EXPOSE 9000
 
-RUN mkdir ./run/php
+#RUN mkdir ./run/php
 
-RUN cp -r wordpress/ var/www/html/
+#RUN cp -r wordpress/ var/www/html/
 
-RUN cp conf/wp-config.php /var/www/
+RUN cp conf/wp-config.php var/www/html/wordpress/
 
-RUN cp conf/www.conf /etc/php/7.3/fpm/pool.d/www.conf && service php7.3-fpm start
-# && ./usr/sbin/php-fmp7.3 -F
+#RUN cp conf/www.conf /etc/php/7.3/fpm/pool.d/www.conf && service php7.3-fpm start
 
-#ENTRYPOINT ["php7.3-fpm"]
 ENTRYPOINT ["/usr/sbin/php-fpm7.3", "--nodaemonize"]
 #ENTRYPOINT ["tail", "-f", "/dev/null"]
