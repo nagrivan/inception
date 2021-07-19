@@ -20,3 +20,6 @@ stop:
 	
 re:
 	@docker-compose -f ${DOCKER-COMP} up -d --build
+
+fclean:
+	@docker system prune -a
