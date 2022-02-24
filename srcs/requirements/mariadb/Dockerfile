@@ -6,30 +6,20 @@
 #    By: nagrivan <nagrivan@21-school.ru>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/15 14:49:26 by nagrivan          #+#    #+#              #
-#    Updated: 2021/06/26 15:46:50 by nagrivan         ###   ########.fr        #
+#    Updated: 2021/07/27 18:47:51 by nagrivan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-FROM	debian:buster
-
-RUN apt-get update && apt-get upgrade -y
-
-RUN apt-get -y install htop
-
-RUN apt-get -y install openssl unzip wget
-
-RUN apt-get -y install php-mysql
-
-RUN apt-get -y install default-mysql-server
-
-COPY . .
-
-RUN rm /etc/mysql/mariadb.conf.d/50-server.cnf && mv /conf/50-server.cnf /etc/mysql/mariadb.conf.d/
-
-RUN chmod 755 /tools/starting_mariadb.sh
+FROM debian:buster
 
 EXPOSE 3306
 
-RUN /tools/starting_mariadb.sh
+RUN apt-get update 
+RUN apt-get install -y mariadb-server vim
 
-ENTRYPOINT ["mysqld"]
+COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/
+RUN chmod 444 /etc/mysql/mariadb.conf.d/50-server.cnf
+
+COPY /tools/starting_mariadb.sh      /var/www/
+RUN chmod 755 /var/www/starting_mariadb.sh 
+ENTRYPOINT ["bash", "/var/www/starting_mariadb.sh"]

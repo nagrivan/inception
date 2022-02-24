@@ -19,7 +19,7 @@ RUN apt-get -y install vim
 
 RUN apt-get -y install htop
 
-RUN openssl req -x509 -nodes -days 365 -subj "/C=RU/ST=Russia/L=/O=/OU=School21/CN=nagrivan" \
+RUN openssl req -x509 -nodes -days 365 -subj "/C=RU/ST=Russia/L=Moscow/O=School21/OU=School21/CN=nagrivan" \
 	-newkey rsa:2048 -keyout /etc/ssl/nginx-selfsigned.key -out /etc/ssl/nginx-selfsigned.crt
 
 COPY conf/default etc/nginx/sites-available/default

@@ -5,7 +5,7 @@ server {
     	server_name nagrivan.42.fr;
 
 	index index.php;
-	root /var/www/html/wordpress;
+	root /var/www/html;
 
 	location / {
 		autoindex on;
